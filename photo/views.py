@@ -8,6 +8,6 @@ def welcome(request):
   
     return render(request, 'home.html')
 
-def register(request):
-  
-    return render(request, 'register/register.html')    
+def register(response):
+    form= UserCreationForm()
+    return render(response, 'register/register.html',{'form':form})    
