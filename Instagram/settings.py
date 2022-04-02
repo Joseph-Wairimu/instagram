@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'photo.apps.PhotoConfig',
     'crispy_forms',
     "bootstrap4"
-    'cloudinary'
+   
 ]
 
 MIDDLEWARE = [
