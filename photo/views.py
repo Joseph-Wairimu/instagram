@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import RegisterForm, NewImageForm
+from .forms import RegisterForm, NewImageForm,ProfileUpdateForm
 from .models import Image, Profile, Comment, Likes, Follow
 
 # Create your views here.
@@ -40,10 +40,23 @@ def new_article(request):
         form = NewImageForm()
     return render(request, 'new_post.html', {"form": form})     
 
-def profile(request, username):
-    profile = Profile.objects.get(user__username=username)
-    images = Image.objects.filter(author=profile.user)
-    return render(request, 'profile.html', {'profile': profile, 'images': images})
+def profile(request):
+   user = request.user
+   user = Profile.objects.get_or_create(user= request.user)
+    
+   if request.method == 'POST':
+         form = ProfileUpdateForm(request.POST, request.FILES)
+         if form.is_valid():
+              profile = form.save(commit=False)
+              profile.user = user
+              profile.save()
+         return redirect('profile')
+   else:
+            form = ProfileUpdateForm()
+   return render(request, 'profile.html', {"form": form})
+
+   
+    
 
     
        
