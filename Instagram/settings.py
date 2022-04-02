@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'photo.apps.PhotoConfig',
     'crispy_forms',
-    "bootstrap4"
+    'bootstrap4',
+    'tinymce',
    
 ]
 

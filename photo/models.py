@@ -2,12 +2,13 @@ from django.db import models
 import cloudinary
 from cloudinary.models import CloudinaryField
 from django.contrib.auth.models import User
+from tinymce.models import HTMLField
 
 class Image(models.Model):
     author = models.ForeignKey('auth.user',on_delete=models.CASCADE,related_name='author')
     image = CloudinaryField('image')
     name = models.CharField(max_length=80)
-    caption = models.TextField()
+    caption = HTMLField()
     date_uploaded = models.DateTimeField(auto_now_add=True)
     likes = models.ManyToManyField( User, default=None,blank= True, related_name='likes')
     dislikes = models.IntegerField(default=0)
