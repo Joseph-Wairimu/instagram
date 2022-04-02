@@ -1,15 +1,17 @@
 from django.db import models
 import cloudinary
 from cloudinary.models import CloudinaryField
+from django.contrib.auth.models import User
 
 class Image(models.Model):
+    author = models.ForeignKey('auth.user',on_delete=models.CASCADE,related_name='author')
     image = CloudinaryField('image')
     name = models.CharField(max_length=80)
     caption = models.TextField()
     date_uploaded = models.DateTimeField(auto_now_add=True)
-    likes = models.IntegerField(default=0)
+    likes = models.ManyToManyField(User, default=0, related_name='likes')
     dislikes = models.IntegerField(default=0)
-    user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+  
     
     def __str__(self):
         return self.name
@@ -27,6 +29,7 @@ class Image(models.Model):
 
 
 class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile',null=True)
     profile_pic = CloudinaryField('image')
     bio = models.TextField(max_length=500, blank=True)
     
@@ -43,24 +46,24 @@ class Profile(models.Model):
         self.bio = new_bio
         self.save()
 
-        
+
 
 class Comment(models.Model):
     comment = models.TextField(max_length=500)
-    user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
-    image = models.ForeignKey('Image', on_delete=models.CASCADE)
+    user = models.ForeignKey('Profile',on_delete=models.CASCADE,related_name='comment')
+    photo = models.ForeignKey('Image', on_delete=models.CASCADE)
     date_posted = models.DateTimeField(auto_now_add=True)
     
 
 
 class Likes(models.Model):
-    user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
-    image = models.ForeignKey('Image', on_delete=models.CASCADE)
+    user = models.ForeignKey(User,on_delete = models.CASCADE,related_name='user_like')
+    pic = models.ForeignKey('Image', on_delete=models.CASCADE ,related_name='image_likes')
     like = models.BooleanField(default=False)
     dislike = models.BooleanField(default=False)       
 
 
 class Follow(models.Model):
-    user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+   
     follower = models.ForeignKey('auth.User', on_delete=models.CASCADE, related_name='follower')
     following = models.ForeignKey('auth.User', on_delete=models.CASCADE, related_name='following')   
