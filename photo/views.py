@@ -39,3 +39,11 @@ def new_article(request):
     else:
         form = NewImageForm()
     return render(request, 'new_post.html', {"form": form})     
+
+def profile(request, username):
+    profile = Profile.objects.get(user__username=username)
+    images = Image.objects.filter(author=profile.user)
+    return render(request, 'profile.html', {'profile': profile, 'images': images})
+
+    
+       
