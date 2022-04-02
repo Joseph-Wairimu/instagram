@@ -2,7 +2,7 @@
 {% load bootstrap4 %}
 
 {% block content %}
-<div class="container">
+<div class="container all">
     <nav class="navbar">
         <div class="logo">
             <svg  xmlns="http://www.w3.org/2000/svg" width="27" height="27" fill="currentColor" class="bi bi-instagram" viewBox="0 0 16 16">
@@ -28,17 +28,14 @@
         {% endif %}
                 
     </nav>
-
-
-    <form  class="me" action="{%url 'new-post'%}" method="post" enctype="multipart/form-data">
-        {%csrf_token%}
-    
-        {% bootstrap_form form%}
-        <input type="submit" class="btn btn-success btn-lg" value="Post">
-      </form>
-      
-    
+    {% if images %}
+    <p>User~{{profile.user}}</p>
+    <img src="{{profile.profile_pic.url}}" class="card-img-top" alt="...">
+    {% endif %}
+ 
+    <p>Edit your profile <a  href="{%url 'new_profile'%}">here</a></p>
 </div>
+
 <style>
 
 svg{
@@ -67,6 +64,7 @@ svg{
        font-family: 'Dancing Script', cursive;
        margin: 1rem; 
  }
+.all{color: aliceblue;}
 
 </style>
 {% endblock %}

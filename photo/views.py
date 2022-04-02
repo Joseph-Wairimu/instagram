@@ -41,9 +41,18 @@ def new_article(request):
     return render(request, 'new_post.html', {"form": form})     
 
 def profile(request):
+    current_user = request.user
+    profile = Profile.objects.get(user=current_user)
+    images = Image.objects.filter(author=current_user)
+    return render(request, 'profile.html', {"images": images, "profile": profile})
+
+
+def update_profile(request):
+
    user = request.user
    user = Profile.objects.get_or_create(user= request.user)
-    
+   bio = Profile.objects.get(user= request.user)
+   profile_pic = Profile.objects.get(user= request.user)
    if request.method == 'POST':
          form = ProfileUpdateForm(request.POST, request.FILES)
          if form.is_valid():
@@ -53,7 +62,7 @@ def profile(request):
          return redirect('profile')
    else:
             form = ProfileUpdateForm()
-   return render(request, 'profile.html', {"form": form})
+   return render(request, 'new_profile.html', {"form": form, "user": user, "bio": bio, "profile_pic": profile_pic})
 
    
     
