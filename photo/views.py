@@ -12,10 +12,10 @@ def register(response):
         form = RegisterForm(response.POST)
         if form.is_valid():
             form.save()
-            
+
            
             
-            return redirect('/home')
+            return redirect('/welcome')
     else:
         form = RegisterForm()
     return render(response, 'register/register.html', {'form': form})

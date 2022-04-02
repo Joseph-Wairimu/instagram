@@ -1,15 +1,29 @@
 {% extends "base.html" %}
 
-
-{% block title %}
-Create an account
-{% endblock %}
 {% load crispy_forms_tags %}
 {% block content %}
-<form method="POST" class="form-group">
+<h1>Create an account</h1>
+<form method="POST" class="form-group me">
     {% csrf_token %}
 {{form|crispy}}
 <button type="submit" class="btn btn-success">Register</button>
 </form>
+<style>
+    h1{
+           text-align: center;
+           color: #fff;
+           margin-top: 1rem;
+    }
+   .me{
+       width: 30%;
+         height: 35rem;
+            margin: auto;
+            background-color: black;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-top: 1rem;
+            color: #fff;
 
+   }
+</style>
 {% endblock %}

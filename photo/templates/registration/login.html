@@ -1,13 +1,12 @@
 {% extends 'base.html' %}
-
-{% block title %}
-Login Here
-{% endblock %}
-
 {% load crispy_forms_tags %}
 
+
+
+
 {% block content %}
-<form method="POST" class="form-group">
+ <h1>Login Here</h1>
+<form method="POST" class="form-control me">
  {% csrf_token %}
 {{form|crispy}}
 <p>Don't have an account? create one <a href="/register">here</a></p>
@@ -15,5 +14,20 @@ Login Here
 
 </form>
 
-
+<style>
+     h1{
+            text-align: center;
+            color: #fff;
+     }
+    .me{
+        width: 30%;
+        height: 15rem;
+        margin: auto;
+        background-color: black;
+        border-radius: 10px;
+        padding: 2rem;
+        margin-top: 5rem;
+        color: #fff;
+    }
+</style>
 {% endblock %}
