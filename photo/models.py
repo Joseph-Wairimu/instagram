@@ -9,7 +9,7 @@ class Image(models.Model):
     name = models.CharField(max_length=80)
     caption = models.TextField()
     date_uploaded = models.DateTimeField(auto_now_add=True)
-    likes = models.ManyToManyField(User, default=0, related_name='likes')
+    likes = models.ManyToManyField( User, default=None,blank= True, related_name='likes')
     dislikes = models.IntegerField(default=0)
   
     

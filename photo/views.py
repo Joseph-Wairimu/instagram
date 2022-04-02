@@ -6,7 +6,9 @@ from .forms import RegisterForm
 def welcome(request):
   
     return render(request, 'home.html')
-
+def home(request):
+  
+    return render(request, 'index.html')
 def register(response):
     if response.method == "POST":
         form = RegisterForm(response.POST)
