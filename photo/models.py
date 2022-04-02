@@ -29,7 +29,21 @@ class Image(models.Model):
 class Profile(models.Model):
     profile_pic = CloudinaryField('image')
     bio = models.TextField(max_length=500, blank=True)
+    
+    def __str__(self):
+        return self.bio
 
+    def save_profile(self):
+        self.save()
+
+    def delete_profile(self):
+        self.delete()
+
+    def update_bio(self, new_bio):
+        self.bio = new_bio
+        self.save()
+
+        
 
 class Comment(models.Model):
     comment = models.TextField(max_length=500)
