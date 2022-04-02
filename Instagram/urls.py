@@ -20,6 +20,7 @@ from photo import views as v
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('photo.urls')),
+    path('home/', v.home, name='home'),
     path('register/', v.register, name='register'),
     path('',include('django.contrib.auth.urls')),
     

@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 import os
 from pathlib import Path
 
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -40,6 +44,7 @@ INSTALLED_APPS = [
     'photo.apps.PhotoConfig',
     'crispy_forms',
     "bootstrap4"
+    'cloudinary'
 ]
 
 MIDDLEWARE = [
@@ -73,6 +78,11 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'Instagram.wsgi.application'
 
+cloudinary.config(
+  cloud_name = "dxeahbkr4",
+  api_key = "396168366874715",
+  api_secret = "3p_fOBiWkCn1ZZ0C-URaBeJxzDI"
+)
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
@@ -130,5 +140,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-LOGIN_REDIRECT_URL='/'
+LOGIN_REDIRECT_URL='/home'
 LOGOUT_REDIRECT_URL='/'
