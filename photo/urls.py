@@ -5,5 +5,7 @@ from . import views
 
 urlpatterns=[
     path('',views.welcome,name='welcome'),
-    
+
 ]
+if settings.DEBUG:
+    urlpatterns+= static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
