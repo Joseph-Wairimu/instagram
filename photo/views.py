@@ -4,13 +4,13 @@ from .models import Image, Profile, Comment, Likes, Follow
 
 # Create your views here.
 def welcome(request):
-    images = Image.objects.all()
-    return render(request, 'home.html',{'images': images[::-1], })
+
+    return render(request, 'home.html')
 
 
 def home(request):
-  
-    return render(request, 'index.html')
+    images = Image.objects.all()
+    return render(request, 'index.html',{'images': images[::-1], })
 
 def register(response):
     if response.method == "POST":

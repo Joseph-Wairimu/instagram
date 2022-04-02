@@ -1,6 +1,34 @@
 {%extends 'base.html'%} 
 
 {% block content %}
+<div class="card-row">
+{% for news_item in images %}
 
+    <div class="card">
+        <img src="{{news_item.image.url}}" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">{{news_item.name}}</h5>
+            <p class="card-text">{{news_item.caption}}</p>
+            <a href="{{news_item.image.url}}" class="btn btn-primary">Image link</a>
+        </div>
+    </div>
+
+
+{% empty %}
+<div class="row">
+    <h2 style="color: aliceblue; margin-top: 2rem;" class="text-center">There No Gallery Items</h2>
+  </div>
+{% endfor %}
+</div>
+
+
+<style>
+
+.card-row{
+    width: 100%;  
+  display: flex;
+  flex-wrap: wrap;
+}
+</style>
 
 {% endblock %}
