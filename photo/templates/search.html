@@ -2,6 +2,18 @@
 {% block content %}
 
 <div class="container">
+
+
+    <div class="row text-center" style="color: white; margin-top: 2rem;">
+        {% if articles%}
+          <h4>Found {{ articles|length }} of searched term {{message}}</h4>
+        {% else %}
+          <h4> Found 0 articles for the search term {{message}}</h4>
+        {% endif %}
+    
+      </div>
+
+
     {% if articles %}
 
     {% for post in articles %}
