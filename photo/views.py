@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .forms import RegisterForm, NewImageForm,ProfileUpdateForm, CommentForm
-from .models import Image, Profile, Comment, Likes, Follow
+from .models import Image, Profile, Comment, Likes, Follow,WelcomeEmailRecipients
+from .email import send_welcome_email
 
 # Create your views here.
 def welcome(request):
@@ -15,8 +16,14 @@ def register(response):
     if response.method == "POST":
         form = RegisterForm(response.POST)
         if form.is_valid():
-            form.save()
+           
+            username = form.cleaned_data['username']
+            email = form.cleaned_data['email']
 
+            recipient = WelcomeEmailRecipients(username =username,email =email)
+            recipient.save()
+            send_welcome_email(username,email)  
+            form.save()
            
             
             return redirect('login')

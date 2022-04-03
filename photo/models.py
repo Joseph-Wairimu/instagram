@@ -86,3 +86,7 @@ class Follow(models.Model):
    
     follower = models.ForeignKey('auth.User', on_delete=models.CASCADE, related_name='follower')
     following = models.ForeignKey('auth.User', on_delete=models.CASCADE, related_name='following')   
+
+class WelcomeEmailRecipients(models.Model):
+    username = models.CharField(max_length = 30)
+    email = models.EmailField()

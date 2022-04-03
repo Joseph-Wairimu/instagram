@@ -1,0 +1,3 @@
+Hello {{name}}
+
+Welcome to the  Insta newsletter You will find the most exciting pictures about Insta Site
