@@ -5,7 +5,7 @@
 
 ## Design
 
-![app](media/gallery/pic.png)
+![app](photo/static/assets/pics.jpg)
 
 
 ## Description
