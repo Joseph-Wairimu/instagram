@@ -4,14 +4,12 @@ from .models import Image, Profile, Comment, Likes, Follow
 
 # Create your views here.
 def welcome(request):
-
     return render(request, 'home.html')
 
 
 def home(request):
-    comment = Comment.objects.all()
     images = Image.objects.all()
-    return render(request, 'index.html',{'images': images[::-1], 'comment': comment})
+    return render(request, 'index.html',{'images': images[::-1], 'comments': comment})
 
 def register(response):
     if response.method == "POST":
@@ -96,18 +94,28 @@ def comment(request,id):
         return redirect('home')
     else:
         form = CommentForm()
-    return render(request, 'comment.html', {"form": form})    
+    return render(request, 'comment.html', {"form": form})  
 
-def like(request,id):
-    image = Image.objects.get(id=id)
-    current_user = request.user
-    likes = Likes.objects.get_or_create(user=request.user, pic=image)
-    if likes.like == True:
-        likes.like = False
-        likes.save()
-    else:
-        likes.like = True
-        likes.save()
+def like_post(request):
+    user = request.user
+    if request.method == 'POST':
+        image_id = request.POST.get('image_id')
+        phone_post = Image.objects.get(id= image_id)
+
+        if user in phone_post.liked.all():
+            phone_post.liked.remove(user)
+        else:
+            phone_post.liked.add(user)
+
+        like, created = Likes.objects.get_or_create(user=user, image_id = image_id)
+        if not created:
+            if like.value == 'Like':
+                like.value = 'Unlike'
+            else:
+                like.value = 'Like'
+
+        like.save()
+
     return redirect('home')
 
 

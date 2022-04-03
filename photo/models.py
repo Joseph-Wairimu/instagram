@@ -6,11 +6,11 @@ from tinymce.models import HTMLField
 
 class Image(models.Model):
     author = models.ForeignKey('auth.user',on_delete=models.CASCADE,related_name='author')
-    image = CloudinaryField('image')
+    image = CloudinaryField('image', blank=True,null=True)
     name = models.CharField(max_length=80)
     caption = HTMLField()
     date_uploaded = models.DateTimeField(auto_now_add=True)
-    likes = models.ManyToManyField( User, default=None,blank= True, related_name='likes')
+    liked = models.ManyToManyField(User, default=None,blank= True,related_name='liked')
     dislikes = models.IntegerField(default=0)
   
     def __str__(self):
@@ -27,13 +27,17 @@ class Image(models.Model):
         self.caption = new_caption
         self.save()
     
+    def __str__(self):
+        return self.name
+
     @classmethod
     def search_by_name(cls, search_term):
         images = cls.objects.filter( author__username__icontains=search_term)
         return images
-        
-    def __str__(self):
-        return self.name
+    @property
+    def num_likes(self):
+        return self.liked.all().count    
+
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile',null=True)
@@ -54,20 +58,28 @@ class Profile(models.Model):
         self.save()
     
 
-
 class Comment(models.Model):
-    comment = models.TextField(max_length=500)
-    user = models.ForeignKey('Profile',on_delete=models.CASCADE,related_name='comment')
-    photo = models.ForeignKey('Image', on_delete=models.CASCADE)
-    date_posted = models.DateTimeField(auto_now_add=True)
-    
+    image = models.ForeignKey('Image',related_name='comments',on_delete=models.CASCADE)
+    name = models.CharField(max_length=255)
+    comment = models.TextField()
+    date_added = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.image.caption,self.name}'
+
+LIKE_CHOICES = (
+    ('Like','Like'),
+    ('Unlike','Unlike'),
+)
 
 
 class Likes(models.Model):
-    user = models.ForeignKey(User,on_delete = models.CASCADE,related_name='user_like')
-    pic = models.ForeignKey('Image', on_delete=models.CASCADE ,related_name='image_likes')
-    like = models.BooleanField(default=False)
-    dislike = models.BooleanField(default=False)       
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    image = models.ForeignKey(Image,on_delete=models.CASCADE)
+    value = models.CharField(choices=LIKE_CHOICES,default='Like',max_length=10)
+
+    def __str__(self):
+        return str(self.image)     
 
 
 class Follow(models.Model):

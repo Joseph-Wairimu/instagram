@@ -91,7 +91,7 @@ cloudinary.config(
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'instagram',
+        'NAME': 'insta',
         'USER': 'moringa',
     'PASSWORD':'Access',
     }
