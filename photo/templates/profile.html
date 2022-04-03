@@ -44,9 +44,13 @@
                     <h5 class="card-title" style="color: black;"><span style="font-weight: bold;">User:</span>{{image.author}}</h5>
                  
                       {% if profile %}
-                        <p style="color: black;" >{{profile.bio}}</p>
+                        <p style="color: black;" >Bio{{profile.bio}}</p>
                         {% endif %}
 
+                      {% if followers %}
+                      <p style="color: black;" >Bio{{followers.follower}}</p>
+                      {% endif %}
+                        
                 </div>
             </div>
         </div>

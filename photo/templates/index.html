@@ -48,7 +48,7 @@
             <h5 class="card-title"> <span style="color: black; font-weight: bold;">Name~</span>{{news_item.author}}</h5>
             <p class="card-text"> <span style="color: black; font-weight: bold;">Caption~</span>{{news_item.caption}}</p>
             <p class="card-text"> <span style="color: black; font-weight: bold;" >Date~</span> {{news_item.date_uploaded}}</p>
-
+            <p class="card-text"> <span style="color: black; font-weight: bold;" >Likes~</span> {{news_item.dislikes }}</p>
               <a href="{{news_item.image.url}}" class="btn btn-primary">Image link</a>
               <a href="{%url 'comment' 1%}">
                 <svg style=" color: rgb(51, 48, 48); margin:1rem;width:2.5rem; height:2.5rem;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat" viewBox="0 0 16 16">

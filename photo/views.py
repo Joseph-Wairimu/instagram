@@ -9,8 +9,9 @@ def welcome(request):
 
 
 def home(request):
+    comment = Comment.objects.all()
     images = Image.objects.all()
-    return render(request, 'index.html',{'images': images[::-1], })
+    return render(request, 'index.html',{'images': images[::-1], 'comment': comment})
 
 def register(response):
     if response.method == "POST":
@@ -42,9 +43,10 @@ def new_article(request):
 
 def profile(request):
     current_user = request.user
+    followers = Follow.objects.filter(follower=current_user)
     profile = Profile.objects.get(user=current_user)
     images = Image.objects.filter(author=current_user)
-    return render(request, 'profile.html', {"images": images, "profile": profile})
+    return render(request, 'profile.html', {"images": images, "profile": profile,"followers": followers})
 
 
 def update_profile(request):
@@ -94,4 +96,23 @@ def comment(request,id):
         return redirect('home')
     else:
         form = CommentForm()
-    return render(request, 'comment.html', {"form": form})        
+    return render(request, 'comment.html', {"form": form})    
+
+def like(request,id):
+    image = Image.objects.get(id=id)
+    current_user = request.user
+    likes = Likes.objects.get_or_create(user=request.user, pic=image)
+    if likes.like == True:
+        likes.like = False
+        likes.save()
+    else:
+        likes.like = True
+        likes.save()
+    return redirect('home')
+
+
+def followers(request,id):
+    current_user = request.user
+    profile = Profile.objects.get(user=current_user)
+    followers = Follow.objects.filter(user=current_user)
+    return render(request, 'followers.html', {"followers": followers, "profile": profile})
