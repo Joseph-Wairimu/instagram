@@ -19,7 +19,7 @@
           <ul>
             <li>
                 <a  class='btn btn-default'  style=" color: white;" href="{%url 'new-post'%}">Create Article</a>
-                <a class='btn btn-default'  style=" color: white;" href="{%url 'new_profile'%}">Profile</a>
+                <a class='btn btn-default'  style=" color: white;" href="{%url 'profile'%}">Profile</a>
                 <a class='btn btn-default'  style=" color: white;" href="/logout">Logout</a>
               </li>
           </ul>
@@ -33,7 +33,6 @@
         {% endif %}
                 
     </nav>
-
     <p>Edit your profile <a  href="{%url 'new_profile'%}">here</a></p>
     {% if images %}
     {% for image in images %}

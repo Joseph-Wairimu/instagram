@@ -42,7 +42,7 @@ def new_article(request):
 def profile(request):
     current_user = request.user
     followers = Follow.objects.filter(follower=current_user)
-    profile = Profile.objects.get(user=current_user)
+    # profile = Profile.objects.get(user=current_user)
     images = Image.objects.filter(author=current_user)
     return render(request, 'profile.html', {"images": images, "profile": profile,"followers": followers})
 
