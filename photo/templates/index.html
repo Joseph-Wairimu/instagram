@@ -39,8 +39,9 @@
     <div class="card">
         <img src="{{news_item.image.url}}" class="card-img-top" alt="...">
         <div class="card-body">
-            <h5 class="card-title">{{news_item.name}}</h5>
-            <p class="card-text">{{news_item.caption}}</p>
+            <h5 class="card-title"> <span style="color: black; font-weight: bold;">Name~</span>{{news_item.name}}</h5>
+            <p class="card-text"> <span style="color: black; font-weight: bold;">Caption~</span>{{news_item.caption}}</p>
+            <p class="card-text"> <span style="color: black; font-weight: bold;" >Date~</span> {{news_item.date_uploaded}}</p>
             <a href="{{news_item.image.url}}" class="btn btn-primary">Image link</a>
         </div>
     </div>
