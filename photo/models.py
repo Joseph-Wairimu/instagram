@@ -13,9 +13,9 @@ class Image(models.Model):
     likes = models.ManyToManyField( User, default=None,blank= True, related_name='likes')
     dislikes = models.IntegerField(default=0)
   
-    
     def __str__(self):
-        return self.name
+        return f'{self.author.username}'
+    
 
     def save_image(self):
         self.save()
@@ -27,7 +27,13 @@ class Image(models.Model):
         self.caption = new_caption
         self.save()
     
-
+    @classmethod
+    def search_by_name(cls, search_term):
+        images = cls.objects.filter( author__username__icontains=search_term)
+        return images
+        
+    def __str__(self):
+        return self.name
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile',null=True)
@@ -46,7 +52,7 @@ class Profile(models.Model):
     def update_bio(self, new_bio):
         self.bio = new_bio
         self.save()
-
+    
 
 
 class Comment(models.Model):

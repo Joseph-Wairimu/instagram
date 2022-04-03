@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container">
+    {% if articles %}
+
+    {% for post in articles %}
+      <div class="col-md-6 col-lg-3 col-12 col-sm-12">
+          <div class="row m-1 mb-3">
+              <div class="card  ">
+                  <img  class="image-thumbnail img-fluid mt-3" src="{{post.image.url}}" alt="Card image cap">
+                  <h5 class="centered" style="margin-left: 1rem;"><span style="color: black; font-weight: bold;">User:</span>{{post.author}}</h5>
+                  <div class="card-body">
+                      <p class="card-text"> <span style="color: black; font-weight: bold;">Caption:</span>{{post.caption}}</p>
+                      <p class="card-text"> <span style="color: black; font-weight: bold;">Date:</span>{{post.date_uploaded}}</p>
+                  </div>
+                </div>
+          </div>
+      </div>
+      {% endfor %}
+      {%endif%}
+    
+    </div>
+  
+
+{%endblock%}

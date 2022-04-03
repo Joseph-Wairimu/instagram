@@ -67,5 +67,17 @@ def update_profile(request):
    
     
 
+def search_results(request):
+
+    if 'author' in request.GET and request.GET["author"]:
+        search_term = request.GET.get("author")
+        searched_articles = Image.search_by_name( search_term)
+        message = f"{ search_term}"
+
+        return render(request, 'search.html',{"message":message,"articles": searched_articles})
+
+    else:
+        message = "You haven't searched for any term"
+        return render(request, 'search.html',{"message":message})
     
        
