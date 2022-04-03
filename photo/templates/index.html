@@ -55,9 +55,9 @@
                
                 <form action="{% url 'like-post' %}" method="POST" >
                   {% csrf_token %}
-                  <input type="hidden" name="image_id" value="{{image.id}}">
+                  <input type="hidden" name="news_item_id" value="{{news_item.id}}">
                   {% if user not in news_item.liked.all %}
-                  <button class="btn btn-success" >like</button>
+                  <button class="btn btn-success"  >like</button>
                   {% else %}
                   <button  class="btn btn-danger" >unlike</button>
                   {%endif%}

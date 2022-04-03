@@ -18,6 +18,7 @@ class NewImageForm(forms.ModelForm):
         widgets = {
             'likes': forms.CheckboxSelectMultiple(),
         }
+        
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
@@ -28,4 +29,3 @@ class CommentForm(forms.ModelForm):
         model = Comment
         fields = ['comment']
 
-        

@@ -106,15 +106,15 @@ def comment(request,id):
 def like_post(request):
     user = request.user
     if request.method == 'POST':
-        image_id = request.POST.get('image_id')
-        phone_post = Image.objects.get(id= image_id)
+        news_item_id = request.POST.get('news_item_id')
+        phone_post = Image.objects.get(id= news_item_id)
 
         if user in phone_post.liked.all():
             phone_post.liked.remove(user)
         else:
             phone_post.liked.add(user)
 
-        like, created = Likes.objects.get_or_create(user=user, image_id = image_id)
+        like, created = Likes.objects.get_or_create(user=user, image_id = news_item_id)
         if not created:
             if like.value == 'Like':
                 like.value = 'Unlike'
