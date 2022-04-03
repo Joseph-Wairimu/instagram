@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import RegisterForm, NewImageForm,ProfileUpdateForm
+from .forms import RegisterForm, NewImageForm,ProfileUpdateForm, CommentForm
 from .models import Image, Profile, Comment, Likes, Follow
 
 # Create your views here.
@@ -79,5 +79,19 @@ def search_results(request):
     else:
         message = "You haven't searched for any term"
         return render(request, 'search.html',{"message":message})
-    
-       
+
+
+def comment(request,id):
+    image = Image.objects.get(id=id)
+    current_user = request.user
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.user = current_user
+            comment.image = image
+            comment.save()
+        return redirect('home')
+    else:
+        form = CommentForm()
+    return render(request, 'comment.html', {"form": form})        

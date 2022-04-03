@@ -34,10 +34,29 @@
                 
     </nav>
     {% if images %}
-    <p>User~{{profile.user}}</p>
-    <p>Bio~{{profile.bio}}</p>
-    <img src="{{profile.profile_pic.url}}" class="card-img-top" alt="...">
+    {% for image in images %}
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <img class="card-img-top" src="{{image.image.url}}" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title" style="color: black;"><span style="font-weight: bold;">User:</span>{{image.author}}</h5>
+                 
+                      {% if profile %}
+                        <p style="color: black;" >{{profile.bio}}</p>
+                        {% endif %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <h1>No profile details</h1>
     {% endif %}
+
+    
  
     <p>Edit your profile <a  href="{%url 'new_profile'%}">here</a></p>
 </div>
