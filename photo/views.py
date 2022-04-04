@@ -22,7 +22,7 @@ def register(response):
 
             recipient = WelcomeEmailRecipients(username =username,email =email)
             recipient.save()
-            # send_welcome_email(username,email)  
+            send_welcome_email(username,email)  
             form.save()
            
             
