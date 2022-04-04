@@ -16,14 +16,14 @@ def register(response):
     if response.method == "POST":
         form = RegisterForm(response.POST)
         if form.is_valid():
-            
+
            
             username = form.cleaned_data['username']
             email = form.cleaned_data['email']
 
             recipient = WelcomeEmailRecipients(username =username,email =email)
             recipient.save()
-            send_welcome_email(username,email)  
+            # send_welcome_email(username,email)  
             form.save()
            
             
